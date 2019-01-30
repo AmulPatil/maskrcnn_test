@@ -62,7 +62,7 @@ class IDVConfig(Config):
     NUM_CLASSES = 1 + 4  # Background + balloon
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 50
+    STEPS_PER_EPOCH = 5
 
     # Skip detections with < 60% confidence
     DETECTION_MIN_CONFIDENCE = 0.6
@@ -111,7 +111,7 @@ class IDVDataset(utils.Dataset):
 
         # The VIA tool saves images in the JSON even if they don't have any
         # annotations. Skip unannotated images.
-        #annotations = [a for a in annotations if a['regions']]
+        annotations = [a for a in annotations if a['regions']]
 
         # Add images
         for a in annotations:
@@ -213,13 +213,13 @@ def train(model):
     print("Training network layers")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=10,
+                epochs=5,
                 #augmentation=augmentation,
                 layers='4+')
     print("Training network All")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=20,
+                epochs=5,
                 #augmentation=augmentation,
                 layers='all')
 
