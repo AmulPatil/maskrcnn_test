@@ -1804,7 +1804,7 @@ class MaskRCNN():
         assert mode in ['training', 'inference']
 
         # Image size must be dividable by 2 multiple times
-	print(config.IMAGE_SHAPE[:2])
+	
         h, w = config.IMAGE_SHAPE[:2]
         if h / 2**6 != int(h / 2**6) or w / 2**6 != int(w / 2**6):
             raise Exception("Image size must be dividable by 2 at least 6 times "
@@ -2063,7 +2063,7 @@ class MaskRCNN():
         # TODO: remove in about 6 months (end of 2018)
         try:
             from keras.engine import saving
-        except ImportError:
+        except Impor**:
             # Keras before 2.2 used the 'topology' namespace.
             from keras.engine import topology as saving
 
@@ -2071,7 +2071,7 @@ class MaskRCNN():
             by_name = True
 
         if h5py is None:
-            raise ImportError('`load_weights` requires h5py.')
+            raise Impor**('`load_weights` requires h5py.')
         f = h5py.File(filepath, mode='r')
         if 'layer_names' not in f.attrs and 'model_weights' in f:
             f = f['model_weights']
