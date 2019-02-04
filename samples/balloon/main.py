@@ -143,27 +143,37 @@ class IDVDataset(utils.Dataset):
             one mask per instance.
         class_ids: a 1D array of class IDs of the instance masks.
         """
-        # If not a balloon dataset image, delegate to parent class.
-        #image_info = self.image_info[image_id]
-        info = self.image_info[image_id]
-        if info["source"] != "idv":
+        # If not a road dataset image, delegate to parent class.
+        image_info = self.image_info[image_id]
+        if image_info["source"] != "road":
             return super(self.__class__, self).load_mask(image_id)
-        num_ids = info['num_ids']
+
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
-        #info = self.image_info[image_id]
+        info = self.image_info[image_id]
         mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
                         dtype=np.uint8)
-
         for i, p in enumerate(info["polygons"]):
             # Get indexes of pixels inside the polygon and set them to 1
             rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
+            print("mask.shape, min(mask),max(mask): {}, {},{}".format(mask.shape, np.min(mask),np.max(mask)))
+            print("rr.shape, min(rr),max(rr): {}, {},{}".format(rr.shape, np.min(rr),np.max(rr)))
+            print("cc.shape, min(cc),max(cc): {}, {},{}".format(cc.shape, np.min(cc),np.max(cc)))
+
+            ## Note that this modifies the existing array arr, instead of creating a result array
+            ## Ref: https://stackoverflow.com/questions/19666626/replace-all-elements-of-python-numpy-array-that-are-greater-than-some-value
+            rr[rr > mask.shape[0]-1] = mask.shape[0]-1
+            cc[cc > mask.shape[1]-1] = mask.shape[1]-1
+
+            print("After fixing the dirt mask, new values:")        
+            print("rr.shape, min(rr),max(rr): {}, {},{}".format(rr.shape, np.min(rr),np.max(rr)))
+            print("cc.shape, min(cc),max(cc): {}, {},{}".format(cc.shape, np.min(cc),np.max(cc)))
+
             mask[rr, cc, i] = 1
 
         # Return mask, and array of class IDs of each instance. Since we have
         # one class ID only, we return an array of 1s
-        num_ids = np.array(num_ids, dtype=np.int32)
-        return mask, num_ids
+        return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
 
     def image_reference(self, image_id):
         """Return the path of the image."""
