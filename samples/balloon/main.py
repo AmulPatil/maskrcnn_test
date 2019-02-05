@@ -160,7 +160,7 @@ class IDVDataset(utils.Dataset):
             # Get indexes of pixels inside the polygon and set them to 1
 
             rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
-            print(rr,cc)
+   
             mask[rr, cc, i] = 1
 
         # Return mask, and array of class IDs of each instance. Since we have
