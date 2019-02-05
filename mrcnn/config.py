@@ -26,7 +26,7 @@ class Config(object):
     NAME = None  # Override in sub-classes
 
     # NUMBER OF GPUs to use. For CPU training, use 1
-    GPU_COUNT = 1
+    GPU_COUNT = 2
 
     # Number of images to train with on each GPU. A 12GB GPU can typically
     # handle 2 images of 1024x1024px.
@@ -152,14 +152,14 @@ class Config(object):
     MASK_SHAPE = [28, 28]
 
     # Maximum number of ground truth instances to use in one image
-    MAX_GT_INSTANCES = 40
+    MAX_GT_INSTANCES = 100
 
     # Bounding box refinement standard deviation for RPN and final detections.
     RPN_BBOX_STD_DEV = np.array([0.1, 0.1, 0.2, 0.2])
     BBOX_STD_DEV = np.array([0.1, 0.1, 0.2, 0.2])
 
     # Max number of final detections
-    DETECTION_MAX_INSTANCES = 40
+    DETECTION_MAX_INSTANCES = 100
 
     # Minimum probability value to accept a detected instance
     # ROIs below this threshold are skipped
