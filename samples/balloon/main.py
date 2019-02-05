@@ -62,7 +62,7 @@ class IDVConfig(Config):
     NUM_CLASSES = 1 + 4  # Background + balloon
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 5
+    STEPS_PER_EPOCH = 100
 
     # Skip detections with < 60% confidence
     DETECTION_MIN_CONFIDENCE = 0.6
@@ -216,19 +216,19 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=50,
+                epochs=15,
                 #augmentation=augmentation,
                 layers='heads')
     print("Training network layers")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=5,
+                epochs=15,
                 #augmentation=augmentation,
                 layers='4+')
     print("Training network All")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=2,
+                epochs=20,
                 #augmentation=augmentation,
                 layers='all')
 
