@@ -146,7 +146,6 @@ class IDVDataset(utils.Dataset):
         # If not a balloon dataset image, delegate to parent class.
         #image_info = self.image_info[image_id]
         info = self.image_info[image_id]
-        print(info)
         if info["source"] != "idv":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
