@@ -144,13 +144,13 @@ class IDVDataset(utils.Dataset):
         class_ids: a 1D array of class IDs of the instance masks.
         """
         # If not a road dataset image, delegate to parent class.
-        image_info = self.image_info[image_id]
-        if image_info["source"] != "road":
+        info = self.image_info[image_id]
+        if info["source"] != "idv":
             return super(self.__class__, self).load_mask(image_id)
 
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
-        info = self.image_info[image_id]
+        num_ids = info['num_ids']
         mask = np.zeros([info["height"], info["width"], len(info["polygons"])],
                         dtype=np.uint8)
         for i, p in enumerate(info["polygons"]):
