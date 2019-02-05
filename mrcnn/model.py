@@ -2100,7 +2100,7 @@ class MaskRCNN():
             by_name = True
 
         if h5py is None:
-            raise ImportError('`load_weights` requires h5py.')
+            raise Impor**('`load_weights` requires h5py.')
         f = h5py.File(filepath, mode='r')
         if 'layer_names' not in f.attrs and 'model_weights' in f:
             f = f['model_weights']
@@ -2345,7 +2345,7 @@ class MaskRCNN():
             epochs=epochs,
             steps_per_epoch=self.config.STEPS_PER_EPOCH,
             callbacks=callbacks,
-            validation_data=val_generator,
+            validation_data=next(val_generator),
             validation_steps=self.config.VALIDATION_STEPS,
             max_queue_size=100,
             workers=workers,
