@@ -191,9 +191,9 @@ def train(model):
     
     # test dataset
     
-    dataset_test = IDVDataset()
-    dataset_test.load_idv(args.dataset, "test")
-    dataset_test.prepare()
+    #dataset_test = IDVDataset()
+    #dataset_test.load_idv(args.dataset, "test")
+    #dataset_test.prepare()
     
     
 
