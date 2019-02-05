@@ -156,19 +156,11 @@ class IDVDataset(utils.Dataset):
         for i, p in enumerate(info["polygons"]):
             # Get indexes of pixels inside the polygon and set them to 1
             rr, cc = skimage.draw.polygon(p['all_points_y'], p['all_points_x'])
-            print("mask.shape, min(mask),max(mask): {}, {},{}".format(mask.shape, np.min(mask),np.max(mask)))
-            print("rr.shape, min(rr),max(rr): {}, {},{}".format(rr.shape, np.min(rr),np.max(rr)))
-            print("cc.shape, min(cc),max(cc): {}, {},{}".format(cc.shape, np.min(cc),np.max(cc)))
-
             ## Note that this modifies the existing array arr, instead of creating a result array
             ## Ref: https://stackoverflow.com/questions/19666626/replace-all-elements-of-python-numpy-array-that-are-greater-than-some-value
             rr[rr > mask.shape[0]-1] = mask.shape[0]-1
             cc[cc > mask.shape[1]-1] = mask.shape[1]-1
-
-            print("After fixing the dirt mask, new values:")        
-            print("rr.shape, min(rr),max(rr): {}, {},{}".format(rr.shape, np.min(rr),np.max(rr)))
-            print("cc.shape, min(cc),max(cc): {}, {},{}".format(cc.shape, np.min(cc),np.max(cc)))
-
+          
             mask[rr, cc, i] = 1
    
         # Return mask, and array of class IDs of each instance. Since we have
