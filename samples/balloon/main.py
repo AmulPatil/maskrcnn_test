@@ -237,15 +237,7 @@ def train(model):
                 epochs=1,
                 augmentation=augmentation,
                 layers='all')
-    custom_WEIGHTS_PATH = sorted(glob.glob("/logs/*/mask_rcnn_*.h5"))[-1]
-
-    model.save_weights(custom_WEIGHTS_PATH, by_name=True)
-    weights_file = drive.CreateFile({'title' : 'model_weights.h5'})
-    weights_file.SetContentFile('model_weights.h5')
-    weights_file.Upload()
-    drive.CreateFile({'id': weights_file.get('id')})
-
-
+    
 ############################################################
 #  Training
 ############################################################
