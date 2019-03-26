@@ -222,19 +222,19 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=50,
+                epochs=100,
                 augmentation=augmentation,
                 layers='heads')
     print("Training network layers")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=75,
+                epochs=175,
                 augmentation=augmentation,
                 layers='4+')
     print("Training network All")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=100,
+                epochs=300,
                 augmentation=augmentation,
                 layers='all')
     
