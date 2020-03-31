@@ -60,7 +60,7 @@ class IDVConfig(Config):
     IMAGES_PER_GPU = 2
 
     # Number of classes (including background)
-    NUM_CLASSES = 1 + 4  # Background + balloon
+    NUM_CLASSES = 1 + 4  # Background + 3 different types of leaf diseases+ 1 healthy grape leaf
 
     # Number of training steps per epoch
     STEPS_PER_EPOCH = 50
